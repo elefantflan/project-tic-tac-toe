@@ -27,3 +27,6 @@ function createTiles(){
 }
 
 createTiles();
+
+// test
+mark[4] = 2;
