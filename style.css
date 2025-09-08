@@ -9,10 +9,10 @@
     border:1px solid black;
 }
 
-.tile{
+.div{
     border:1px solid black;
 }
 
-.tile:hover{
+.div:hover{
     background-color: #eeeeee;
 }
