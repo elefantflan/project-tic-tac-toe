@@ -8,3 +8,7 @@
 
     border:1px solid black;
 }
+
+.players{
+    white-space:pre-line;
+}
