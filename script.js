@@ -1,25 +1,32 @@
 //General
-const body = document.body;
-const gameBoard = document.createElement('div');
+const body=document.body;
+const title=document.createElement('h1');
+const container=document.createElement('div');
+const gameBoard=document.createElement('div');
 const gamePlayers=document.createElement('div');
 const gameTurn=document.createElement('div');
-const gameResult=document.createElement('div');
+const footer=document.createElement('div');
+
+body.append(container);
+
+container.append(title);
+title.textContent='Tic-Tac-Toe'
 
 gameBoard.className='game';
-body.append(gameBoard);
+container.append(gameBoard);
 
 gamePlayers.className='players';
-body.append(gamePlayers);
+container.append(gamePlayers);
 
 gameTurn.className='turn';
-body.append(gameTurn);
-
-gameResult.className='results';
-body.append(gameResult);
+container.append(gameTurn);
 
 const btnReset=document.createElement('button');
 btnReset.textContent='Clear'
-body.append(btnReset)
+container.append(btnReset)
+
+body.append(footer);
+footer.textContent="Haein Kim © The Odin Project"
 
 //Value
 let tiles = [];
@@ -72,21 +79,22 @@ Player.prototype.info=function(){
 
 const playerOne = new Player('player 1', 'O');
 const playerTwo = new Player('player 2', 'X');
-console.log(playerOne.info());
-console.log(playerTwo.info());
 
 const players = []
 players.push(playerOne);
 players.push(playerTwo);
-
-
-gamePlayers.textContent=`${playerOne.info()}\n${playerTwo.info()}`
 
 // Function for Switching player Turns
 let activePlayer = players[0];
 
 function switchPlayerTurn(){
     activePlayer = activePlayer === players[0] ? players[1] : players[0];
+    if(activePlayer===players[0]){
+        gameTurn.textContent="player 2's turn"
+    }
+    else if (activePlayer===players[1]){
+        gameTurn.textContent="player 1's turn"
+    }
 };
 
 const getActivePlayer = () => activePlayer;
@@ -109,6 +117,7 @@ function clearGame(){
     btns.forEach((btn)=>{
         btn.textContent='';
         btn.disabled=false;
+        btnTiles.forEach(btn => btn.style.backgroundColor = '');
     })
     
 }
@@ -149,8 +158,11 @@ function announceResult(){
             combo[0].textContent===combo[1].textContent&&
             combo[0].textContent===combo[2].textContent
         ){
-            gameResult.textContent=`${activePlayer.name} wins!`
-
+            gameTurn.textContent=`${activePlayer.name} wins!`
+            combo.forEach(btn=>{
+                btn.style.backgroundColor=
+                combo[0].textContent==='O'?'lightblue':'lightcoral';
+            })
         btns.forEach(btn=>btn.disabled=true);
         return true;
         }
@@ -159,9 +171,9 @@ function announceResult(){
 }
 
 function checkTie(){
-    const allFilled= btnTiles.forEach(btn=>btn.textContent!=='');
+    const allFilled = btnTiles.every(btn => btn.textContent !== '');
     if(allFilled && !announceResult()){
-        gameResult.textContent='No Contest. Play again?'
+        gameTurn.textContent='No Contest. Play again?'
         btns.forEach(btn=>btn.disabled=true);
         return true;
     }
