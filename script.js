@@ -159,7 +159,7 @@ function announceResult(){
 }
 
 function checkTie(){
-    const allFilled= btns.every(btn=>btn.textContent!=='');
+    const allFilled= btnTiles.forEach(btn=>btn.textContent!=='');
     if(allFilled && !announceResult()){
         gameResult.textContent='No Contest. Play again?'
         btns.forEach(btn=>btn.disabled=true);
